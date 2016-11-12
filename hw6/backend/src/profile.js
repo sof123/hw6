@@ -2,12 +2,16 @@ const express = require('express')
 const bodyParser = require('body-parser')
 
 
-var defaultHeadline = "Default Headline"
-
+const defaultHeadline = {
+        username: 'sep1',
+        headline: 'defaultHeadline',
+}
+/*
 const index = (req, res) => {
     console.log(req.params.user)
     res.send({ hello: 'world' })
 }
+*/
 
 const putHeadline = (req, res) => {
   console.log(req.params.user)
@@ -39,10 +43,13 @@ const getHeadline = (req, res) => {
   console.log(req.params.user)
   console.log('Payload received', req.body)
  var payload;
- if (req.method == 'GET' && req.url == '/headlines')
+ /*
+ if (//req.method == 'GET' && req.url == '/headlines')
  {
    payload = defaultHeadline;
  }
+ */
+ payload = defaultHeadline
 
  //res.setHeader('Content-Type', 'application/json')
  //res.statusCode = 200
@@ -51,7 +58,7 @@ const getHeadline = (req, res) => {
 }
 
 module.exports = app => {
-     app.get('/:user?', index)
+     //app.get('/:user?', index)
      app.get('/headlines/', getHeadline)
      app.put('/headline', putHeadline)
      app.get('/headlines/:user?', getHeadlineUser)

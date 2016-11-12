@@ -3,6 +3,8 @@
  */
 
 
+
+
 const expect = require('chai').expect
 const fetch = require('isomorphic-fetch')
 
@@ -18,7 +20,7 @@ describe('Validate Profile Functionality', () => {
 		})
 		.then(body => {
 			console.log("body is " + body)
-			expect(body).to.eql('Default Headline')
+			expect(body).to.eql('{"username":"sep1","headline":"defaultHeadline"}')
 		})
 		.then(done)
 		.catch(done)
