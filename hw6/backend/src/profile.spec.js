@@ -1,21 +1,24 @@
 /*
  * Test suite for hello.js
  */
+
+
 const expect = require('chai').expect
 const fetch = require('isomorphic-fetch')
 
 const url = path => `http://localhost:3000${path}`
 
-describe('Validate Hello Functionality', () => {
+describe('Validate Profile Functionality', () => {
 
 	it('should say Hello Somebody!', (done) => {
-		fetch(url("/"))
+		fetch(url("/headlines/"))
 		.then(res => {
 			expect(res.status).to.eql(200)
 			return res.text()
 		})
 		.then(body => {
-			expect(body).to.eql("Hello Somebody!")
+			console.log("body is " + body)
+			expect(body).to.eql('Default Headline')
 		})
 		.then(done)
 		.catch(done)

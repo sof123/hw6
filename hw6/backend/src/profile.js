@@ -1,9 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-var currentId = 3
-var articles = { 'articles' : [ { id: 1, author: 'Scott', body:'A post' }, { id: 2, author: 'Scotty', body:'A posty' },
-            { id: 3, author: 'Scottie', body:'A postie' }]}
 
+
+var defaultHeadline = "Default Headline"
 
 const index = (req, res) => {
     console.log(req.params.user)
@@ -36,8 +35,24 @@ const putEmail = (req, res) => {
   }]})
 }
 
+const getHeadline = (req, res) => {
+  console.log(req.params.user)
+  console.log('Payload received', req.body)
+ var payload;
+ if (req.method == 'GET' && req.url == '/headlines')
+ {
+   payload = defaultHeadline;
+ }
+
+ //res.setHeader('Content-Type', 'application/json')
+ //res.statusCode = 200
+ res.send(JSON.stringify(payload))
+ console.log(JSON.stringify(payload))
+}
+
 module.exports = app => {
      app.get('/:user?', index)
+     app.get('/headlines/', getHeadline)
      app.put('/headline', putHeadline)
      app.get('/headlines/:user?', getHeadlineUser)
      app.get('/email/:user?', getEmailUser)

@@ -3,7 +3,13 @@
  */
 const expect = require('chai').expect
 const fetch = require('isomorphic-fetch')
-var post = {method: 'POST'}
+var post = {method: 'POST',
+						headers: {
+'Content-Type' : 'application/json'
+},
+body : JSON.stringify({"username": "San", "date": "01/12/1993", "text": "Some random"})
+						}
+
 
 const url = path => `http://localhost:3000${path}`
 
@@ -17,7 +23,7 @@ describe('Validate Article functionality', () => {
 				return res.text()
 		})
 		.then(body =>{
-				expect(body.length).not.toBeLessThan(3)
+				expect(body).to.have.length.of.at.least(3)
 		})
 		.then(done)
 		.catch(done)
@@ -30,25 +36,25 @@ describe('Validate Article functionality', () => {
 		// add a second article
 		// verify the article id increases by one
 		// verify the second artice has the correct content
-		fetch(url("/article"), post)
+		fetch(url("/article/4"), post)
 		.then(res => {
 				expect(res.status).to.eql(200)
 				return res.text()
 		})
 		.then(body =>{
-				expect(body.id).to.eql(4)
+				expect(JSON.parse(body).id).to.eql(4)
 		})
 		.then(done)
 		.catch(done)
 
 
-	fetch(url("/article"), post)
+	fetch(url("/article/5"), post)
 	.then(res => {
 			expect(res.status).to.eql(200)
 			return res.text()
 	})
 	.then(body =>{
-			expect(body.id).to.eql(5)
+			expect(JSON.parse(body).id).to.eql(5)
 	})
 	.then(done)
 	.catch(done)
@@ -65,7 +71,7 @@ describe('Validate Article functionality', () => {
 				return res.text()
 		})
 		.then(body =>{
-				expect(body.author).to.eql('Scottie')
+				expect(JSON.parse(body).id).to.eql(3)
 		})
 		.then(done)
 		.catch(done)
